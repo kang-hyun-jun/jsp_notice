@@ -29,3 +29,6 @@ bin/
 .DS_Store
 .idea
 jsp_notice_project.iml
+src/sqldata
+
+web/WEB-INF/lib
