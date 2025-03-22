@@ -11,7 +11,7 @@
 <body class="bg-gray-100">
 <!-- 네비게이션 -->
 <nav class="bg-blue-500 text-white p-4 flex justify-between">
-    <a href="list.html" class="font-bold">게시판</a>
+    <a href="list?f=&s=&p=" class="font-bold">게시판</a>
     <div>
         <a href="login.html" class="mr-4">로그인</a>
         <a href="register.html">회원가입</a>
@@ -23,17 +23,17 @@
     <h1 class="text-3xl font-bold mb-6">📋 게시판 목록</h1>
 
     <!-- 검색 폼 -->
-    <form action="/search" method="get" class="mb-6 bg-white p-4 rounded-lg shadow-md">
+    <form action="/list" method="get" class="mb-6 bg-white p-4 rounded-lg shadow-md">
         <div class="flex space-x-4 items-center">
             <!-- 검색 기준 선택 -->
-            <select name="searchType" class="border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300">
-                <option value="title">제목</option>
-                <option value="content">내용</option>
-                <option value="author">작성자</option>
+            <select name="f" class="border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300">
+                <option value="TITLE">제목</option>
+                <option value="CONTENT">내용</option>
+                <option value="WRITER_ID">작성자</option>
             </select>
 
             <!-- 검색어 입력 -->
-            <input type="text" name="searchKeyword" placeholder="검색어를 입력하세요"
+            <input type="text" name="s" placeholder="검색어를 입력하세요"
                    class="flex-grow border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300" required>
 
             <!-- 검색 버튼 -->

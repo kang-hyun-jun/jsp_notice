@@ -23,13 +23,13 @@ public class ListController extends HttpServlet {
         String filter_ = request.getParameter("f");
         String search_ = request.getParameter("s");
         String page_ = request.getParameter("p");
-        if(!filter_.equals("")&&filter_!=null){
+        if(filter_!=null&&!filter_.equals("")){
             filter = filter_;
         }
-        if(!search_.equals("")&&search_!=null){
+        if(search_!=null&&!search_.equals("")){
             search = search_;
         }
-        if(!page_.equals("")&&page_!=null){
+        if(page_!=null&&!page_.equals("")){
             page = Integer.parseInt(page_);
         }
 
