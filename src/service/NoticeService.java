@@ -42,11 +42,39 @@ public class NoticeService {
                 Notice notice = new Notice(id,title,writer_id,content,regdate,hit,files);
                 notices.add(notice);
             }
+            rs.close();
+            ps.close();
+            con.close();
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return notices;
+    }
+    public int getNoticeCount()  {
+        return getNoticeCount("title","");
+    }
+    public int getNoticeCount(String filter, String search)  {
+        String sql = "SELECT COUNT(ID) COUNT FROM (SELECT ROWNUM NUM,N.* FROM (SELECT * FROM NOTICE WHERE "+filter+" LIKE ? ORDER BY REGDATE DESC)N)M";
+        try {
+            Class.forName(SqlData.driver);
+            Connection con = DriverManager.getConnection(SqlData.url,SqlData.user,SqlData.password);
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1,"%"+search+"%");
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("COUNT");
+            }
+            rs.close();
+            ps.close();
+            con.close();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return 0;
     }
 }

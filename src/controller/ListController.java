@@ -35,9 +35,11 @@ public class ListController extends HttpServlet {
 
         List<Notice> notices = new ArrayList<>();
         NoticeService service = new NoticeService();
+        int count = service.getNoticeCount(filter,search);
         notices =service.getNotices(filter,search,page);
 
         request.setAttribute("notices", notices);
+        request.setAttribute("count", ((count-1)/10)+1);
 
 
 

@@ -72,12 +72,32 @@
 
     <!-- 페이징 번호 -->
     <div class="flex justify-center space-x-2 mb-6">
-        <button class="px-3 py-1 bg-gray-300 rounded hover:bg-gray-400">&lt;</button>
-        <button class="px-3 py-1 bg-blue-500 text-white rounded">1</button>
-        <button class="px-3 py-1 bg-gray-300 rounded hover:bg-gray-400">2</button>
-        <button class="px-3 py-1 bg-gray-300 rounded hover:bg-gray-400">3</button>
-        <button class="px-3 py-1 bg-gray-300 rounded hover:bg-gray-400">&gt;</button>
+        <c:set var="page" value="${(empty param.p) ? 1:param.p}"/>
+        <c:set var="startPage" value="${page-(page-1)%5}"/>
+        <c:set var="lastPage" value="${(empty count) ? 1 : count}"/>
+        <c:if test="${(startPage-5)>=1}">
+            <a href="?p=${startPage-5}&f=${param.f}&s=${param.s}" class="px-3 py-1 bg-gray-300 rounded hover:bg-gray-400"><</a>
+        </c:if>
+        <c:if test="${(startPage-5)<1}">
+            <span class="px-3 py-1 bg-gray-300 rounded hover:bg-gray-400" onclick="alert('이전 페이지가 없습니다.');"><</span>
+        </c:if>
+        <c:forEach var="i" begin="0" end="4" varStatus="st">
+            <c:if test="${i+startPage>count}">
+                <span class="px-3 py-1 bg-gray-300 rounded hover:bg-gray-400" onclick="alert('해당 페이지가 없습니다.');">${startPage+i}</span>
+            </c:if>
+            <c:if test="${i+startPage<=count}">
+                <a href="?p=${startPage+i}&f=${param.f}&s=${param.s}" class="px-3 py-1 rounded hover:bg-gray-400 ${(page==startPage+i)? "bg-blue-500 text-white" : "bg-gray-300"}">${startPage+i}</a>
+            </c:if>
+        </c:forEach>
+
+        <c:if test="${(startPage+5)<=lastPage}">
+            <a href="?p=${page+5}" class="px-3 py-1 bg-gray-300 rounded hover:bg-gray-400">></a>
+        </c:if>
+        <c:if test="${(startPage+5)>lastPage}">
+            <span class="px-3 py-1 bg-gray-300 rounded hover:bg-gray-400" onclick="alert('다음 페이지가 없습니다.');">></span>
+        </c:if>
     </div>
+
 
     <!-- 글쓰기 버튼 -->
     <div class="text-right">
