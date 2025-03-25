@@ -91,7 +91,7 @@
         </c:forEach>
 
         <c:if test="${(startPage+5)<=lastPage}">
-            <a href="?p=${page+5}" class="px-3 py-1 bg-gray-300 rounded hover:bg-gray-400">></a>
+            <a href="?p=${startPage+5}" class="px-3 py-1 bg-gray-300 rounded hover:bg-gray-400">></a>
         </c:if>
         <c:if test="${(startPage+5)>lastPage}">
             <span class="px-3 py-1 bg-gray-300 rounded hover:bg-gray-400" onclick="alert('다음 페이지가 없습니다.');">></span>
