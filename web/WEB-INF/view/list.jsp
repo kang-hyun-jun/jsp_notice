@@ -13,8 +13,8 @@
 <nav class="bg-blue-500 text-white p-4 flex justify-between">
     <a href="list?f=&s=&p=" class="font-bold">게시판</a>
     <div>
-        <a href="login.html" class="mr-4">로그인</a>
-        <a href="register.html">회원가입</a>
+        <a href="/login" class="mr-4">로그인</a>
+        <a href="/register">회원가입</a>
     </div>
 </nav>
 
@@ -27,14 +27,14 @@
         <div class="flex space-x-4 items-center">
             <!-- 검색 기준 선택 -->
             <select name="f" class="border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300">
-                <option value="TITLE">제목</option>
-                <option value="CONTENT">내용</option>
-                <option value="WRITER_ID">작성자</option>
+                <option value="TITLE" ${(param.f.equals("TITLE")) ? "selected": ""}>제목</option>
+                <option value="CONTENT" ${(param.f.equals("CONTENT")) ? "selected": ""}>내용</option>
+                <option value="WRITER_ID" ${(param.f.equals("WRITER_ID")) ? "selected": ""}>작성자</option>
             </select>
 
             <!-- 검색어 입력 -->
-            <input type="text" name="s" placeholder="검색어를 입력하세요"
-                   class="flex-grow border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300" required>
+            <input type="text" name="s" placeholder="검색어를 입력하세요" value="${(empty param.s) ? "":param.s}"
+                    class="flex-grow border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300" required>
 
             <!-- 검색 버튼 -->
             <button type="submit"
@@ -60,7 +60,7 @@
     <c:forEach var="n" items="${notices}" varStatus="st">
         <tr class="border-b hover:bg-gray-100">
             <td class="px-4 py-2">${n.id}</td>
-            <td class="px-4 py-2 text-left"><a href="detail.html" class="text-blue-600 hover:underline">${n.title}</a></td>
+            <td class="px-4 py-2 text-left"><a href="detail?id=${n.id}" class="text-blue-600 hover:underline">${n.title}</a></td>
             <td class="px-4 py-2">${n.writer_id}</td>
             <td class="px-4 py-2">${n.regdate}</td>
             <td class="px-4 py-2">${n.hit}</td>
@@ -101,7 +101,7 @@
 
     <!-- 글쓰기 버튼 -->
     <div class="text-right">
-        <a href="write.html"
+        <a href="/write"
            class="bg-green-500 hover:bg-green-600 text-white px-5 py-2 rounded shadow-md transition duration-200 ease-in-out">
             ✏️ 글쓰기
         </a>
