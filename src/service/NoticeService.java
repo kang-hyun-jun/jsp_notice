@@ -109,4 +109,26 @@ public class NoticeService {
         }
         return notice;
     }
+    public void writeNotice(String title, String content, String writer_id, String files)
+    {
+        String sql = "INSERT INTO NOTICE (title, writer_id, content, files) VALUES (?,?,?,?)";
+        try {
+            Class.forName(SqlData.driver);//오라클 드라이버 로드
+            Connection con = DriverManager.getConnection(SqlData.url,SqlData.user,SqlData.password);//드라이버 매니저를 통해서 연결
+            PreparedStatement ps = con.prepareStatement(sql);// 실행 도구 생성
+            ps.setString(1,title);
+            ps.setString(2,writer_id);
+            ps.setString(3,content);
+            ps.setString(4,files);
+            ResultSet rs = ps.executeQuery();// 결과값 얻어올 수 있는 객체
+
+            rs.close();
+            ps.close();
+            con.close();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
