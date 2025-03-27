@@ -1,5 +1,6 @@
 package controller;
 
+import Model.Notice;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -16,6 +17,7 @@ public class WriteController extends HttpServlet {
 
         request.getRequestDispatcher("/WEB-INF/view/write.html").forward(request,response);
     }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -26,7 +28,8 @@ public class WriteController extends HttpServlet {
         String files = "Null";
 
         NoticeService service = new NoticeService();
-        service.writeNotice(title,content,writer_id,files);
+        Notice notice = new Notice(title,writer_id,content,files);
+        service.writeNotice(notice);
         int count = service.getNoticeCount();
 
         response.sendRedirect("/detail?id=" + count);
